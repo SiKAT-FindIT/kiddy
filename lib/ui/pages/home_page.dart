@@ -13,7 +13,12 @@ class HomePage extends StatelessWidget {
       backgroundColor: purpleColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 64),
+          padding: const EdgeInsets.only(
+            top: 64,
+            bottom: 100,
+            right: 28,
+            left: 28,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

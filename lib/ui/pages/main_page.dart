@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 // Import Pages
 import 'package:kiddy/ui/pages/home_page.dart';
+import 'package:kiddy/ui/pages/menu_page.dart';
+import 'package:kiddy/ui/pages/tracker_page.dart';
 
 // Import Widgets
 import 'package:kiddy/ui/widgets/bottom_navigation.dart';
@@ -24,9 +26,9 @@ class _MainPageState extends State<MainPage> {
       case 0:
         return const HomePage();
       case 1:
-        return const HomePage();
+        return const MenuPage();
       case 2:
-        return const HomePage();
+        return const TrackerPage();
       case 3:
         return const HomePage();
       default:

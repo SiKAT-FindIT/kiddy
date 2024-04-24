@@ -1,4 +1,7 @@
+// Import Packages
 import 'package:flutter/material.dart';
+
+// Import styles
 import 'package:kiddy/shared/theme.dart';
 
 class NavigationItem extends StatelessWidget {
@@ -34,8 +37,8 @@ class NavigationItem extends StatelessWidget {
           icon: Image.asset(
             iconUrl,
             color: index == currentIndex ? darkYellowColor : lightGreyColor,
-            height: 32,
-            width: 32,
+            height: 28,
+            width: 28,
           ),
         ),
         const SizedBox(),
