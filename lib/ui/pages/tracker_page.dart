@@ -28,7 +28,7 @@ class _TrackerPageState extends State<TrackerPage> {
     Widget title() {
       return Padding(
         padding: const EdgeInsets.only(
-          top: 64,
+          top: 48,
           right: 28,
           left: 28,
         ),
@@ -204,11 +204,12 @@ class _TrackerPageState extends State<TrackerPage> {
       );
     }
 
+    // Current Content selected
     Widget content() {
       return Column(
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 16),
+            margin: const EdgeInsets.only(top: 24),
             child: CarouselSlider(
               items: [
                 camera(),
@@ -222,7 +223,9 @@ class _TrackerPageState extends State<TrackerPage> {
                   });
                 },
                 enableInfiniteScroll: false,
-                aspectRatio: 9 / 12,
+                aspectRatio: MediaQuery.of(context).size.width /
+                    MediaQuery.of(context).size.height *
+                    1.5,
                 padEnds: false,
                 viewportFraction: 1,
               ),

@@ -42,7 +42,10 @@ class MenuPage extends StatelessWidget {
     // Current Task
     Widget currentTask() {
       return CustomCard(
-        margin: const EdgeInsets.symmetric(vertical: 16),
+        margin: const EdgeInsets.only(
+          bottom: 16,
+          top: 24,
+        ),
         child: Row(
           children: [
             Text(
@@ -164,7 +167,7 @@ class MenuPage extends StatelessWidget {
       return SafeArea(
         child: ListView(
           padding: const EdgeInsets.only(
-            top: 64,
+            top: 48,
             bottom: 100,
             right: 28,
             left: 28,
