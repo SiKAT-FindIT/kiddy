@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "398350121788",
+    "firebase_url": "https://kiddy-65de6-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kiddy-65de6",
+    "storage_bucket": "kiddy-65de6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398350121788:android:8326cb2b6af160e5107c39",
+        "android_client_info": {
+          "package_name": "com.example.kiddy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGQgWIrPnOgrPKWEqFKEvXHarghZ1y8S4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

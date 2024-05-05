@@ -1,6 +1,12 @@
 // Import Packages
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kiddy/models/device_model.dart';
+import 'package:kiddy/services/device_services.dart';
 
 // Import styles
 import 'package:kiddy/shared/theme.dart';
@@ -21,6 +27,46 @@ class _TrackerPageState extends State<TrackerPage> {
 
   // Carousel Controller
   final CarouselController _controller = CarouselController();
+
+  // Device Data
+  DeviceModel? deviceData;
+
+  // Database Reference
+  late DatabaseReference deviceRef;
+
+  // Maps
+  final Completer<GoogleMapController?> _mapsController = Completer();
+  BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
+
+  @override
+  void initState() {
+    super.initState();
+    // final deviceProvider = Provider.of<DeviceProvider>(context, listen: false);
+    deviceRef = DeviceServices.getDevice(deviceSerialNumber: "Kiddy12345678");
+    deviceRef.onValue.listen((event) {
+      if (event.snapshot.value != null) {
+        Map<String, dynamic> data =
+            Map<String, dynamic>.from(event.snapshot.value as Map);
+        setState(() {
+          deviceData = DeviceModel.fromJson(data, event.snapshot.key!);
+        });
+      }
+    });
+
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, "assets/icons/marker.png")
+        .then(
+      (icon) {
+        markerIcon = icon;
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    deviceRef.onDisconnect();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +174,7 @@ class _TrackerPageState extends State<TrackerPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton.filled(
+                isSelected: false,
                 iconSize: 32,
                 onPressed: () {},
                 icon: Icon(
@@ -137,8 +184,12 @@ class _TrackerPageState extends State<TrackerPage> {
               ),
               const SizedBox(width: 16),
               IconButton.filled(
+                isSelected: deviceData!.isSwing,
                 iconSize: 32,
-                onPressed: () {},
+                onPressed: () async {
+                  await deviceRef
+                      .update({"isSwing": deviceData!.isSwing ? 0 : 1});
+                },
                 icon: Icon(
                   Icons.waves_rounded,
                   color: whiteColor,
@@ -154,52 +205,60 @@ class _TrackerPageState extends State<TrackerPage> {
     Widget maps() {
       return Column(
         children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 28),
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.55,
-            decoration: BoxDecoration(
-              color: lightGreyColor,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 2,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: whiteColor,
-                    boxShadow: cardShadow,
-                  ),
-                  child: const Text('Baim\'s Location'),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Stack(
+            alignment: Alignment.topCenter,
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.refresh,
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 28),
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.55,
+                decoration: BoxDecoration(
+                  color: lightGreyColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: GoogleMap(
+                  zoomControlsEnabled: true,
+                  zoomGesturesEnabled: true,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(deviceData!.latitude, deviceData!.longitude),
+                    zoom: 16,
+                  ),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  markers: {
+                    Marker(
+                      markerId: MarkerId(
+                        deviceData!.latitude.toString() +
+                            deviceData!.longitude.toString(),
+                      ),
+                      position:
+                          LatLng(deviceData!.latitude, deviceData!.longitude),
+                      icon: markerIcon,
+                      infoWindow: const InfoWindow(title: "Kana's Location"),
+                    ),
+                  },
+                  onMapCreated: (GoogleMapController controller) {
+                    if (!_mapsController.isCompleted) {
+                      _mapsController.complete(controller);
+                    }
+                  },
                 ),
               ),
-              Text('Last updated on ', style: darkGreyText),
-              Text(
-                '09:40',
-                style: darkGreyText.copyWith(
-                  fontWeight: bold,
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 2,
                 ),
-              ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: whiteColor,
+                  boxShadow: cardShadow,
+                ),
+                child: const Text('Baim\'s Location'),
+              )
             ],
-          )
+          ),
         ],
       );
     }
@@ -278,7 +337,7 @@ class _TrackerPageState extends State<TrackerPage> {
           Header(
             color: darkPinkColor,
           ),
-          body(),
+          deviceData != null ? body() : const SizedBox(),
         ],
       ),
     );
