@@ -11,6 +11,8 @@ import 'package:tflite_v2/tflite_v2.dart';
 import 'package:image/image.dart' as img;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+// Camera View : Content in Tracker Page
+// Show Camera From IoT Device and Detection
 class CameraView extends StatefulWidget {
   const CameraView({
     super.key,
@@ -21,8 +23,13 @@ class CameraView extends StatefulWidget {
 }
 
 class _CameraViewState extends State<CameraView> {
+  // Counting the number of detection
   int count = 0;
+
+  // WebSocket channel
   late final WebSocketChannel _channel;
+
+  // Detection Data
   DetectionModel? detect;
 
   // Initialization Load TensorFlow Model
@@ -93,6 +100,7 @@ class _CameraViewState extends State<CameraView> {
 
   @override
   Widget build(BuildContext context) {
+    // Device Provider : stream device data
     DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return Column(

@@ -3,6 +3,8 @@ import 'package:kiddy/shared/theme.dart';
 import 'package:kiddy/ui/pages/connecting_page.dart';
 import 'package:kiddy/ui/pages/scan_page.dart';
 
+// Start Page
+// Welcoming Page Before Connecting With Device
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
 
@@ -75,6 +77,7 @@ class _StartPageState extends State<StartPage> {
                 ),
               ),
               onPressed: () async {
+                // Going to Scanning Page
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -82,7 +85,10 @@ class _StartPageState extends State<StartPage> {
                       title: "Kiddy Connect",
                       onDetect: (value, cameraController) {
                         if (value != null) {
+                          // If Value from barcode is not null
                           cameraController.dispose();
+
+                          // Routing to Connecting Page for Checking Connection
                           Navigator.push(
                             context,
                             MaterialPageRoute(

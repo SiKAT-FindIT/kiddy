@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kiddy/shared/theme.dart';
 
+// Setting Item
+// Setting List Menus in Setting Page
 class SettingItem extends StatelessWidget {
   const SettingItem({
     super.key,

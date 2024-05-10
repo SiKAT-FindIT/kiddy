@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
+      // Init providers
       providers: [
         ChangeNotifierProvider(create: (context) => DeviceProvider()),
       ],
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: purpleColor),
           useMaterial3: true,
         ),
+        // Init routes
         routes: {
           '/': (context) => const SplashPage(),
           '/main': (context) => const MainPage(),

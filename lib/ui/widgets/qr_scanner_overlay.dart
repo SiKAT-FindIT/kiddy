@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// QR Scanner Overlay
+// For Styling The Scanner Page
 class QRScannerOverlay extends StatelessWidget {
   const QRScannerOverlay({super.key, required this.overlayColour});
 

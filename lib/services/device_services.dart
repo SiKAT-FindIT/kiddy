@@ -2,10 +2,12 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DeviceServices {
+  // Get Database Reference From Firebase
   static DatabaseReference getDevice({required String deviceSerialNumber}) {
     return FirebaseDatabase.instance.ref('devices').child(deviceSerialNumber);
   }
 
+  // To Connect Device through Serial Number
   Future<String> connectDevice({required String deviceSerialNumber}) async {
     try {
       final pref = await SharedPreferences.getInstance();
@@ -19,6 +21,7 @@ class DeviceServices {
     }
   }
 
+  // To Get Device Serial Number from Saved Data in Shared Preferences
   Future<String?> getSerialNumber() async {
     try {
       final pref = await SharedPreferences.getInstance();
@@ -29,6 +32,7 @@ class DeviceServices {
     }
   }
 
+  // To Disconnect Device by Removing Saved Data in Shared Preferences
   Future<bool> disconnect() async {
     try {
       final pref = await SharedPreferences.getInstance();

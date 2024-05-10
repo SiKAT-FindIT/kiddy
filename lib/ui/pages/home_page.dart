@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 // Import Styles
 import 'package:kiddy/shared/theme.dart';
 
+// Home Page
+// Show after connect with device and that is main page
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 

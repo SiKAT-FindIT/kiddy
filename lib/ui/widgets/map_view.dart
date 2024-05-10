@@ -7,6 +7,7 @@ import 'package:kiddy/shared/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+// MapView : Content of Tracker Page
 class MapView extends StatefulWidget {
   const MapView({
     super.key,
@@ -17,13 +18,16 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
-  // Maps
+  // Initialize the Map Controller
   final Completer<GoogleMapController?> _mapsController = Completer();
+
+  // Initialize Custom Marker
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
 
   @override
   void initState() {
     super.initState();
+    // Initialize Custom Marker from Asset Image
     BitmapDescriptor.fromAssetImage(
             ImageConfiguration.empty, "assets/icons/marker.png")
         .then(
@@ -37,6 +41,7 @@ class _MapViewState extends State<MapView> {
 
   @override
   Widget build(BuildContext context) {
+    // Device Provider : Stream device data
     final DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
 
     return Skeletonizer(

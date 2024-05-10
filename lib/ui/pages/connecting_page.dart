@@ -3,6 +3,8 @@ import 'package:kiddy/providers/device_provider.dart';
 import 'package:kiddy/shared/theme.dart';
 import 'package:provider/provider.dart';
 
+// Connecting Page
+// After QR Scanned, to conditional Routing
 class ConnectingPage extends StatefulWidget {
   const ConnectingPage({super.key, required this.serialnumber});
   final String serialnumber;
@@ -18,6 +20,8 @@ class _ConnectingPageState extends State<ConnectingPage> {
     handleStart(serialNumber: widget.serialnumber);
   }
 
+  // Start After QR Scanned
+  // Give Conditional To Routing
   handleStart({required String serialNumber}) async {
     final DeviceProvider deviceProvider =
         Provider.of<DeviceProvider>(context, listen: false);
@@ -25,12 +29,15 @@ class _ConnectingPageState extends State<ConnectingPage> {
 
     try {
       if (await deviceProvider.connectDevice(serialNumber: serialNumber)) {
+        // Success Connecting
         navigator.pushNamedAndRemoveUntil('/main', (route) => false);
       } else {
-        navigator.pushNamedAndRemoveUntil('/start', (route) => false);
+        navigator.pushNamedAndRemoveUntil(
+            '/start', (route) => false); // Fail Connecting back to start page
       }
     } catch (e) {
-      navigator.pushNamedAndRemoveUntil('/start', (route) => false);
+      navigator.pushNamedAndRemoveUntil('/start',
+          (route) => false); // Have some errors and back to start page
     }
   }
 

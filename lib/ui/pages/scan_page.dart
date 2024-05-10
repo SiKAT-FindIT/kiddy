@@ -1,7 +1,10 @@
+// Import Packages
 import 'package:flutter/material.dart';
-import 'package:kiddy/shared/theme.dart';
 import 'package:kiddy/ui/widgets/qr_scanner_overlay.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+
+// Import Styles
+import 'package:kiddy/shared/theme.dart';
 
 class ScanPage extends StatefulWidget {
   const ScanPage({super.key, required this.title, required this.onDetect});
@@ -15,8 +18,13 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
+  // Flashlight initialization
   bool torchEnabled = false;
+
+  // Camera initialization
   CameraFacing facing = CameraFacing.back;
+
+  // Camera controller
   final MobileScannerController cameraController = MobileScannerController();
 
   @override
@@ -55,6 +63,7 @@ class _ScanPageState extends State<ScanPage> {
                 ),
                 Row(
                   children: [
+                    // Torch Button (Flashlight)
                     IconButton(
                       color: Colors.white,
                       icon: torchEnabled
@@ -67,6 +76,8 @@ class _ScanPageState extends State<ScanPage> {
                         })
                       },
                     ),
+
+                    // Camera Switch Button (Front/Back)
                     IconButton(
                       color: Colors.white,
                       icon: facing == CameraFacing.back

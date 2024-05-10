@@ -10,6 +10,13 @@ import 'package:kiddy/ui/pages/tracker_page.dart';
 // Import Widgets
 import 'package:kiddy/ui/widgets/bottom_navigation.dart';
 
+// Main Page
+// Conditional Page Based On NavBar
+// Pages:
+// 1. Home Page
+// 2. Menu Page
+// 3. Tracker Page
+// 4. Setting Page
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 

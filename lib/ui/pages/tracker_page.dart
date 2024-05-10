@@ -9,6 +9,9 @@ import 'package:kiddy/ui/widgets/camera_view.dart';
 import 'package:kiddy/ui/widgets/header.dart';
 import 'package:kiddy/ui/widgets/map_view.dart';
 
+// Tracker Page
+// Conditional Page Based On Content
+// Has 2 Content : Camera and Maps
 class TrackerPage extends StatefulWidget {
   const TrackerPage({super.key});
 

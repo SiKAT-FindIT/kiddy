@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Colors
 Color purpleColor = const Color(0xFF9491FF);
 Color blueColor = const Color(0xFF61D5FC);
 Color darkGreenColor = const Color(0xFF42B45F);
@@ -13,6 +14,7 @@ Color darkGreyColor = const Color(0xFF5E616A);
 Color lightGreyColor = const Color(0xFA9DB2CE);
 Color whiteColor = Colors.white;
 
+// Shadows
 List<BoxShadow> cardShadow = [
   BoxShadow(
     color: darkGreyColor.withOpacity(0.5),
@@ -29,6 +31,7 @@ List<BoxShadow> textShadow = [
   ),
 ];
 
+// Text Styles
 TextStyle purpleText = GoogleFonts.poppins(color: purpleColor);
 TextStyle blueText = GoogleFonts.poppins(color: blueColor);
 TextStyle darkGreenText = GoogleFonts.poppins(color: darkGreenColor);
@@ -41,6 +44,7 @@ TextStyle darkGreyText = GoogleFonts.poppins(color: darkGreyColor);
 TextStyle lighGreyText = GoogleFonts.poppins(color: lightGreyColor);
 TextStyle whiteText = GoogleFonts.poppins(color: whiteColor);
 
+// Font Weights
 FontWeight light = FontWeight.w300;
 FontWeight regular = FontWeight.w400;
 FontWeight medium = FontWeight.w500;
