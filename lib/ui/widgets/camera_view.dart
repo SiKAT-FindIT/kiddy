@@ -108,9 +108,10 @@ class _CameraViewState extends State<CameraView> {
                 stream: _channel.stream,
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return const Skeletonizer(
-                      enabled: true,
-                      child: SizedBox(),
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: whiteColor,
+                      ),
                     );
                   } else {
                     // Detect once after count untill 10
