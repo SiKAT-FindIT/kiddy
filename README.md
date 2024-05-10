@@ -10,9 +10,11 @@
 
 ## Links
 
-> You can access this project **Presentation Document** [here]().
+> You can access **APK File** [here](https://drive.google.com/file/d/1og0wMm_1jk3bsnlmlk8XCl8vzXXy3PCT/view?usp=sharing).
 
-> You can access this project **Presentation Video** [here]().
+> You can access this project **Presentation Document** [here](https://drive.google.com/file/d/1KRDr1wwKejeJXGlI_VPNDrc4_1aL7u0z/view?usp=sharing).
+
+> You can access this project **Presentation Video** [here](https://drive.google.com/file/d/1ZAUNiemUF2mXBF-0BICi1y4XO3gFNh7M/view?usp=sharing).
 
 > You can access the **Mobile App** repository [here](https://github.com/SiKAT-FindIT/kiddy).
 
@@ -32,11 +34,10 @@
 
 ## General Information
 
-A real-time baby and toddlers monitoring system with machine learning driven solutions, living your best parents life. This application has many features:
+Kiddy merupakan sebuah sistem monitoring bayi dan anak berbasis Internet of Things dan Machine Learning untuk meningkatkan kesehatan mental bagi seorang ibu. Internet of Things dengan penggunaan machine learning akan mengirimkan deteksi ekspresi wajah pada bayi. Sedangkan pada anak balita, wearable Kiddy bisa digunakan untuk deteksi lokasi. Adapun sistem kami terdiri dari:
 
--
--
--
+- Kiddy App : Aplikasi pemantauan kondisi bayi dan lokasi anak
+- Kiddy Device : Pemanfaatan teknologi IoT untuk pemantauan bayi dan anak
 
 <a name="technologies-used"></a>
 
@@ -48,6 +49,7 @@ This project using some technologies :
 - Web Socket
 - Firebase
 - NodeJs
+- Docker
 - Tensorflow Lite
 - Google Maps API
 
@@ -57,17 +59,21 @@ This project using some technologies :
   <img src="docs/system_architecture.png" width=600>
 </p>
 
+Sistem kami menggunakan Flutter untuk membangun aplikasi mobile. Kemudian, menggunakan Firebase sebagai tempat penyimpanan data yang mampu mengakomodasi kebutuan data yang realtime. Firebase kami pilih karena biaya yang terjangkau untuk memulai sebuah bisnis, serta performa yang sudah memenuhi dari sisi bisnis kami. Websocket yang dibangun menggunakan NodeJs juga kami gunakan untuk keperluan mentransmisikan video melalui WebSocket secara cepat dan real time. Sistem ini juga menggunakan TensorFlow Lite untuk melakukan pemodelan pada fitur deteksi ekspresi bayi. Kemudian, juga menggunakan Google Maps SDK sebagai penampil peta untuk melakukan tracking.
+
 ### Architecture of Kiddy IoT Device
 
 <p align="center">
   <img src="docs/hardware_architecture.png" width=600>
 </p>
 
+ESP32 sebagai mikrokontroller akan melakukan pengiriman data lokasi dari GPS ke Firebase Realtime Database. Kemudian terdapat pula pengubahan state untuk menggerakan ayunan bayi. Untuk pengambilan data ekspresi secara realtime kami menggunakan ESP32-Cam. Dari modul kamera tersebut data dikirimkan menggunakan Websocket, untuk dapat diproses menggunakan model Tensorflow Lite. Sebagai end device, aplikasi mobile akan menerima data dari Firebase dan Websocket server untuk dapat diolah dan ditampilkan pada pengguna.
+
 <a name="installation">
 
 ## Installation
 
-Then, run the development server:
+Then, run the development build:
 
 Install all dependencies
 
@@ -81,18 +87,18 @@ and run debugger on your IDE
 
 ## Our Team
 
-| Nama                        | E-Mail                      |
-| --------------------------- | --------------------------- |
-| Ardhan Nur Urfan            | 18221118@std.stei.itb.ac.id |
-| Reswara Trista Candrakanthi | 18221122@std.stei.itb.ac.id |
-| Karina Rahadiani            | 18221104@std.stei.itb.ac.id |
+| Nama             | E-Mail                      |
+| ---------------- | --------------------------- |
+| Ardhan Nur Urfan | 18221118@std.stei.itb.ac.id |
+| Reswara Trista   | 18221122@std.stei.itb.ac.id |
+| Karina Rahadiani | 18221104@std.stei.itb.ac.id |
 
 <a name="copyright"></a>
 
 ## Copyright
 
 <h4 align="center">
-  Propose for FindIT 2024 by SiKAT Team. Copyrights @2024
+  Proposed for FindIT 2024 by SiKAT Team. Copyrights @2024
 </h4>
 
 </hr>
