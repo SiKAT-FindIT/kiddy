@@ -9,6 +9,7 @@ import 'package:kiddy/shared/theme.dart';
 // Import Pages
 import 'package:kiddy/ui/pages/main_page.dart';
 import 'package:kiddy/ui/pages/splash_page.dart';
+import 'package:kiddy/ui/pages/start_page.dart';
 
 // Import Providers
 import 'package:provider/provider.dart';
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (context) => const SplashPage(),
-          '/main-page': (context) => const MainPage(),
+          '/main': (context) => const MainPage(),
+          '/start': (context) => const StartPage(),
         },
       ),
     );

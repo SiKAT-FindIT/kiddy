@@ -18,4 +18,24 @@ class DeviceServices {
       rethrow;
     }
   }
+
+  Future<String?> getSerialNumber() async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+
+      return pref.getString('device_serial_number');
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> disconnect() async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+
+      return await pref.remove('device_serial_number');
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

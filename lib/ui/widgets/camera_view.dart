@@ -6,6 +6,7 @@ import 'package:kiddy/providers/device_provider.dart';
 import 'package:kiddy/shared/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:slide_digital_clock/slide_digital_clock.dart';
 import 'package:tflite_v2/tflite_v2.dart';
 import 'package:image/image.dart' as img;
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -143,7 +144,7 @@ class _CameraViewState extends State<CameraView> {
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: cardShadow,
+                        boxShadow: textShadow,
                       ),
                       child: Text(
                         'Kana\'s Camera',
@@ -156,16 +157,21 @@ class _CameraViewState extends State<CameraView> {
                         Container(
                           margin: const EdgeInsets.only(top: 20),
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
+                            horizontal: 8,
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            boxShadow: cardShadow,
+                            boxShadow: textShadow,
                           ),
-                          child: Text(
-                            '09:41',
-                            style: whiteText,
+                          child: DigitalClock(
+                            showSecondsDigit: false,
+                            hourMinuteDigitTextStyle: whiteText,
+                            is24HourTimeFormat: true,
+                            colon: Text(
+                              ":",
+                              style: whiteText,
+                            ),
                           ),
                         ),
                         Container(
@@ -176,7 +182,7 @@ class _CameraViewState extends State<CameraView> {
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            boxShadow: cardShadow,
+                            boxShadow: textShadow,
                           ),
                           child: Visibility(
                             visible: detect != null,
@@ -228,8 +234,7 @@ class _CameraViewState extends State<CameraView> {
                 isSelected: deviceProvider.device?.isSwing,
                 iconSize: 32,
                 onPressed: () async {
-                  // await deviceRef
-                  //     .update({"isSwing": deviceData!.isSwing ? 0 : 1});
+                  await deviceProvider.updateSwing();
                 },
                 icon: Icon(
                   Icons.waves_rounded,

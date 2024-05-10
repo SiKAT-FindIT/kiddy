@@ -1,17 +1,23 @@
 // Import Packages
 import 'package:flutter/material.dart';
+import 'package:kiddy/providers/device_provider.dart';
 
 // Import Styles
 import 'package:kiddy/shared/theme.dart';
 
 // Import Widgets
 import 'package:kiddy/ui/widgets/setting_item.dart';
+import 'package:provider/provider.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    DeviceProvider deviceProvider = Provider.of<DeviceProvider>(context);
+    final navigator = Navigator.of(context);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
     // Title
     Widget title() {
       return Text(
@@ -51,6 +57,39 @@ class SettingPage extends StatelessWidget {
       );
     }
 
+    Widget signOutButton() {
+      return Container(
+        margin: const EdgeInsets.only(top: 32),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            minimumSize: const Size(200, 48),
+            backgroundColor: purpleColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          onPressed: () async {
+            if (await deviceProvider.disconnect()) {
+              navigator.pushNamedAndRemoveUntil('/start', (route) => false);
+            } else {
+              scaffoldMessenger.hideCurrentSnackBar();
+              scaffoldMessenger.showSnackBar(
+                SnackBar(
+                  content: Center(
+                      child: Text('Disconnect failed', style: whiteText)),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          },
+          child: Text(
+            'Disconnect',
+            style: whiteText,
+          ),
+        ),
+      );
+    }
+
     // render body
     Widget body() {
       return SafeArea(
@@ -61,7 +100,11 @@ class SettingPage extends StatelessWidget {
             right: 28,
             left: 28,
           ),
-          children: [title(), settingItems()],
+          children: [
+            title(),
+            settingItems(),
+            signOutButton(),
+          ],
         ),
       );
     }

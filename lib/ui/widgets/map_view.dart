@@ -24,14 +24,13 @@ class _MapViewState extends State<MapView> {
   @override
   void initState() {
     super.initState();
-    DeviceProvider deviceProvider =
-        Provider.of<DeviceProvider>(context, listen: false);
-    deviceProvider.getDeviceData();
     BitmapDescriptor.fromAssetImage(
             ImageConfiguration.empty, "assets/icons/marker.png")
         .then(
       (icon) {
-        markerIcon = icon;
+        setState(() {
+          markerIcon = icon;
+        });
       },
     );
   }

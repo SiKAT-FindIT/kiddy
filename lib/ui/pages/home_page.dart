@@ -105,9 +105,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(width: 24),
                   IconButton.filled(
                     iconSize: 32,
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/tes');
-                    },
+                    onPressed: () {},
                     icon: Icon(
                       Icons.videocam,
                       color: whiteColor,

@@ -11,21 +11,54 @@ class DeviceProvider extends ChangeNotifier {
   String get deviceSerialNumber => _deviceSerialNumber;
   String get errorMessage => _errorMessage;
 
-  Future<void> connectDevice({required String serialNumber}) async {
+  Future<bool> connectDevice({required String serialNumber}) async {
     try {
-      // String deviceSerialNumber = await DeviceServices().connectDevice(
-      //   deviceSerialNumber: serialNumber,
-      // );
+      String deviceSerialNumber = await DeviceServices().connectDevice(
+        deviceSerialNumber: serialNumber,
+      );
       _deviceSerialNumber = deviceSerialNumber;
+      await getDeviceData();
+      _errorMessage = '';
       notifyListeners();
+      return true;
+    } catch (e) {
+      _errorMessage = e.toString();
+      return false;
+    }
+  }
+
+  Future<void> getSerialNumber() async {
+    try {
+      String? serialNumber = await DeviceServices().getSerialNumber();
+      if (serialNumber != null) {
+        _deviceSerialNumber = serialNumber;
+        _errorMessage = '';
+      } else {
+        _errorMessage = 'Not connected the device';
+      }
     } catch (e) {
       _errorMessage = e.toString();
     }
   }
 
+  Future<bool> disconnect() async {
+    try {
+      if (await DeviceServices().disconnect()) {
+        _errorMessage = '';
+        return true;
+      } else {
+        _errorMessage = 'Disconnect the device failed';
+        return false;
+      }
+    } catch (e) {
+      _errorMessage = e.toString();
+      return false;
+    }
+  }
+
   Future<void> getDeviceData() async {
     DatabaseReference deviceRef =
-        DeviceServices.getDevice(deviceSerialNumber: "Kiddy12345678");
+        DeviceServices.getDevice(deviceSerialNumber: _deviceSerialNumber);
     deviceRef.onValue.listen((event) {
       if (event.snapshot.value != null) {
         Map<String, dynamic> data =
@@ -34,5 +67,13 @@ class DeviceProvider extends ChangeNotifier {
         notifyListeners();
       }
     });
+  }
+
+  Future<void> updateSwing() async {
+    DatabaseReference deviceRef =
+        DeviceServices.getDevice(deviceSerialNumber: _deviceSerialNumber);
+    if (device != null) {
+      await deviceRef.update({"isSwing": device!.isSwing ? 0 : 1});
+    }
   }
 }

@@ -21,6 +21,14 @@ List<BoxShadow> cardShadow = [
   ),
 ];
 
+List<BoxShadow> textShadow = [
+  BoxShadow(
+    color: darkGreyColor.withOpacity(0.2),
+    blurRadius: 16,
+    spreadRadius: 0,
+  ),
+];
+
 TextStyle purpleText = GoogleFonts.poppins(color: purpleColor);
 TextStyle blueText = GoogleFonts.poppins(color: blueColor);
 TextStyle darkGreenText = GoogleFonts.poppins(color: darkGreenColor);

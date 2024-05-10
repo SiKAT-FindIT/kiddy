@@ -1,9 +1,12 @@
 // Import Packages
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:kiddy/providers/device_provider.dart';
 
 // Import Styles
 import 'package:kiddy/shared/theme.dart';
+import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,22 +18,22 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   // Init state to fetch the application data when start the apps
   getInit() async {
-    Timer(
-      const Duration(seconds: 3),
-      () {
-        // User? currentUser = FirebaseAuth.instance.currentUser;
-        // context.read<ConsultanCubit>().fetchConsultants();
-        // context.read<ArticleCubit>().fetchArticles();
-        // context.read<VideoCubit>().fetchVideos();
-        // if (currentUser == null) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/main-page', (route) => false);
-        // } else {
-        // context.read<AuthCubit>().getCurrentUser(currentUser.uid);
-        // Navigator.pushNamedAndRemoveUntil(context, '/main', (route) => false);
-        // }
-      },
-    );
+    Timer(const Duration(seconds: 3), () async {
+      // Import Providers
+      DeviceProvider deviceProvider =
+          Provider.of<DeviceProvider>(context, listen: false);
+      // Init final context
+      final navigator = Navigator.of(context);
+
+      // Check if the device have connected
+      await deviceProvider.getSerialNumber();
+      if (deviceProvider.deviceSerialNumber == '') {
+        navigator.pushNamedAndRemoveUntil('/start', (route) => false);
+      } else {
+        await deviceProvider.getDeviceData();
+        navigator.pushNamedAndRemoveUntil('/main', (route) => false);
+      }
+    });
   }
 
   @override
